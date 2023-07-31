@@ -12,15 +12,3 @@
   align-items: center;
   padding: 20px;
 }
-
-select,
-input,
-button {
-  padding: 8px;
-  border-radius: 5px;
-  margin: 5px;
-}
-
-button {
-  cursor: pointer;
-}

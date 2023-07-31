@@ -6,6 +6,9 @@ function App() {
   const [brandList, setBrandList] = useState(productsData.brands);
   const [productList, setProductList] = useState(productsData.products);
 
+  //state to keep track of selected brands
+  const [selectedBrands, setSelectedBrands] = useState("");
+  const [selectedProducts, setSelectedProducts] = useState;
   return (
     <div className="App">
       <h1>Product Manager App</h1>

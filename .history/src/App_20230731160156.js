@@ -5,7 +5,6 @@ import { useState } from "react";
 function App() {
   const [brandList, setBrandList] = useState(productsData.brands);
   const [productList, setProductList] = useState(productsData.products);
-
   return (
     <div className="App">
       <h1>Product Manager App</h1>

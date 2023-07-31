@@ -1,0 +1,11 @@
+.App {
+  /* text-align: center; */
+  align-items: center;
+  /* max-width: 600px; */
+  padding: 20px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+}

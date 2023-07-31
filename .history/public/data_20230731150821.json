@@ -1,0 +1,16 @@
+{
+  "brands": [
+    {
+      "brand": "Apple",
+      "name": "Product1"
+    },
+    {
+      "brand": "Samsung",
+      "name": "Product2"
+    },
+    {
+      "brand": "Google",
+      "name": "Product3"
+    }
+  ]
+}
