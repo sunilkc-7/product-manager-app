@@ -88,11 +88,11 @@ select {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  width: 40%;
+  width: 50%;
 }
 
 .buttonContainer {
   height: 44px;
   margin-top: 7px;
-  width: auto;
+  width: 40%;
 }

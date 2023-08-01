@@ -18,7 +18,7 @@ table {
   border-collapse: collapse;
   border-spacing: 10px;
   margin-bottom: 20px;
-  width: 40%;
+  width: 50%;
 }
 
 th,
@@ -60,12 +60,12 @@ select {
 }
 
 .inputSearch {
-  width: 40%;
+  width: 50%;
 }
 
 .inputContainer {
   position: relative;
-  width: 40%;
+  width: 50%;
 }
 
 .inputWithButton {
@@ -88,7 +88,7 @@ select {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  width: 40%;
+  width: 50%;
 }
 
 .buttonContainer {

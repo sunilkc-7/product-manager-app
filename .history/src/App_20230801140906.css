@@ -88,7 +88,7 @@ select {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  width: 40%;
+  width: 50%;
 }
 
 .buttonContainer {

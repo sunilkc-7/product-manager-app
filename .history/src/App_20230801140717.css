@@ -18,7 +18,7 @@ table {
   border-collapse: collapse;
   border-spacing: 10px;
   margin-bottom: 20px;
-  width: 40%;
+  width: 50%;
 }
 
 th,
@@ -69,7 +69,7 @@ select {
 }
 
 .inputWithButton {
-  width: 100%;
+  width: 40%;
 }
 
 .insideButton {
@@ -88,7 +88,7 @@ select {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  width: 40%;
+  width: 50%;
 }
 
 .buttonContainer {
