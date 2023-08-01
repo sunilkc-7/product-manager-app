@@ -1,0 +1,56 @@
+.body {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+select,
+input,
+button {
+  padding: 8px;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+button {
+  cursor: pointer;
+}
+
+.tb {
+  border-collapse: collapse;
+  width: 300px;
+}
+.tb th,
+.tb td {
+  padding: 5px;
+  border: solid 1px #777;
+}
+.tb th {
+  background-color: lightblue;
+}
+
+/* table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+
+  padding: 10px;
+}
+table,
+th {
+  margin-top: 20px;
+}
+
+.tableEdit {
+  margin-left: 2px;
+} */

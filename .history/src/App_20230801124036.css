@@ -42,7 +42,7 @@ button:hover {
 
 input[type="text"],
 select {
-  /* width: 100%; */
+  width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
@@ -52,34 +52,5 @@ select {
 }
 
 .inputSearch {
-  width: auto !important;
-}
-
-.inputContainer {
-  position: relative;
-  width: 200px;
-}
-
-.inputWithButton {
-  width: 100%;
-}
-
-.insideButton {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  cursor: pointer;
-  margin: auto !important;
-}
-
-.select-container {
-  width: 50%;
-  display: flex;
-  justify-content: space-between;
-}
-.buttonContainer {
   width: auto;
-  height: 44px;
-  margin-top: 7px;
 }

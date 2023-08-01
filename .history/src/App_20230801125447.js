@@ -13,13 +13,11 @@ function App() {
   const [editedName, setEditedName] = useState("");
 
   const addProduct = () => {
-    if (currentBrand && productName) {
-      setProducts([
-        ...products,
-        { brand: currentBrand, name: productName, isEditing: false },
-      ]);
-      setProductName("");
-    }
+    setProducts([
+      ...products,
+      { brand: currentBrand, name: productName, isEditing: false },
+    ]);
+    setProductName("");
   };
 
   const deleteProduct = (productToDelete) => {
@@ -46,13 +44,11 @@ function App() {
   };
 
   const addBrandName = () => {
-    if (newBrandName) {
-      setProducts([
-        ...products,
-        { brand: newBrandName, name: "", isEditing: false },
-      ]);
-      setNewBrandName("");
-    }
+    setProducts([
+      ...products,
+      { brand: newBrandName, name: "", isEditing: false },
+    ]);
+    setNewBrandName("");
   };
 
   const brandNames = Array.from(new Set(products.map((p) => p.brand)));
@@ -70,13 +66,13 @@ function App() {
         onChange={(e) => setSearch(e.target.value)}
         placeholder="Search products"
       />
-      <div className="select-container">
-        <br />
+      <br />
+
+      <div>
         <select
           style={{ maxHeight: "100px", overflow: "auto" }}
           onChange={(e) => setCurrentBrand(e.target.value)}
         >
-          <option value="">Select Brand</option>
           {brandNames.map((brandName, index) => (
             <option key={index} value={brandName}>
               {brandName}
@@ -89,9 +85,7 @@ function App() {
           value={productName}
           onChange={(e) => setProductName(e.target.value)}
         />
-        <button className="buttonContainer" onClick={addProduct}>
-          Add
-        </button>
+        <button onClick={addProduct}>Add</button>
       </div>
       <div className="inputContainer">
         <input
@@ -106,49 +100,45 @@ function App() {
         </button>
       </div>
 
-      {brandNames.map((brandName, index) => {
-        const relatedProducts = filteredProducts
-          .filter((p) => p.brand === brandName)
-          .sort((a, b) => a.name.localeCompare(b.name));
-        return (
-          <table key={index}>
-            <thead>
-              <tr>
-                <th>{brandName}</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            {relatedProducts.length > 0 && (
-              <tbody>
-                {relatedProducts.map((product, i) => (
-                  <tr key={i}>
-                    <td>
-                      {product.isEditing ? (
-                        <input
-                          value={editedName}
-                          onChange={(e) => setEditedName(e.target.value)}
-                        />
-                      ) : (
-                        product.name
-                      )}
-                    </td>
-                    <td>
-                      {product.isEditing ? (
-                        <button onClick={() => updateProduct(product)}>
-                          Save
-                        </button>
-                      ) : (
-                        <button onClick={() => editProduct(product)}>✏</button>
-                      )}
-                      <button onClick={() => deleteProduct(product)}>❌</button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            )}
-          </table>
-        );
-      })}
+      {brandNames.map((brandName, index) => (
+        <table key={index}>
+          <thead>
+            <tr>
+              <th>{brandName}</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredProducts
+              .filter((p) => p.brand === brandName)
+              .sort((a, b) => a.name.localeCompare(b.name))
+              .map((product, i) => (
+                <tr key={i}>
+                  <td>
+                    {product.isEditing ? (
+                      <input
+                        value={editedName}
+                        onChange={(e) => setEditedName(e.target.value)}
+                      />
+                    ) : (
+                      product.name
+                    )}
+                  </td>
+                  <td>
+                    {product.isEditing ? (
+                      <button onClick={() => updateProduct(product)}>
+                        Save
+                      </button>
+                    ) : (
+                      <button onClick={() => editProduct(product)}>✏</button>
+                    )}
+                    <button onClick={() => deleteProduct(product)}>❌</button>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      ))}
     </div>
   );
 }

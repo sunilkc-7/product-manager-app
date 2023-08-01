@@ -1,0 +1,35 @@
+.body {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+select,
+input,
+button {
+  padding: 8px;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+button {
+  cursor: pointer;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: border;
+
+  padding: 5px;
+}

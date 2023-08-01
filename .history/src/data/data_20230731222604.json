@@ -1,0 +1,25 @@
+{
+  "brands": ["Brand A", "Brand B", "Brand C"],
+  "products": [
+    {
+      "id": 1,
+      "brand": "Brand A",
+      "name": "Product1"
+    },
+    {
+      "id": 2,
+      "brand": "Brand B",
+      "name": "Product2"
+    },
+    {
+      "id": 3,
+      "brand": "Brand C",
+      "name": "Product3"
+    },
+    {
+      "id": 4,
+      "brand": "Brand A",
+      "name": "Product4"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+/* app.css */
+.body {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+select,
+input,
+button {
+  padding: 8px;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* Style the Edit and Delete links */
+.tableEdit {
+  margin-left: 10px;
+  cursor: pointer;
+  color: blue;
+}
+
+.tb {
+  border: 1px solid black;
+}
+
+/* Align the Edit and Delete links to the right */
+.tb td:last-child {
+  text-align: right;
+}

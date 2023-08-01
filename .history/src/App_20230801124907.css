@@ -70,16 +70,4 @@ select {
   right: 10px;
   transform: translateY(-50%);
   cursor: pointer;
-  margin: auto !important;
-}
-
-.select-container {
-  width: 50%;
-  display: flex;
-  justify-content: space-between;
-}
-.buttonContainer {
-  width: auto;
-  height: 44px;
-  margin-top: 7px;
 }
