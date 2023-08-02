@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import data from "./data/data.json";
 
@@ -11,32 +11,13 @@ function App() {
   const [newBrandName, setNewBrandName] = useState("");
   const [currentBrand, setCurrentBrand] = useState("");
   const [editedName, setEditedName] = useState("");
-  const [brandNames, setBrandNames] = useState([]); // holds all brands
-  const [activeBrandNames, setActiveBrandNames] = useState([]); // holds only brands with products
-
-  useEffect(() => {
-    setBrandNames([...Array.from(new Set(products.map((p) => p.brand)))]);
-    setActiveBrandNames([...Array.from(new Set(products.map((p) => p.brand)))]);
-  }, [products]);
-
-  const addBrand = () => {
-    if (newBrandName) {
-      setBrandNames([newBrandName, ...brandNames]);
-      setNewBrandName("");
-    }
-  };
 
   const addProduct = () => {
-    if ((currentBrand || newBrandName) && productName) {
+    if (currentBrand && productName) {
       setProducts([
         ...products,
-        {
-          brand: currentBrand,
-          name: productName,
-          isEditing: false,
-        },
+        { brand: currentBrand, name: productName, isEditing: false },
       ]);
-      setActiveBrandNames([currentBrand, ...activeBrandNames]);
       setProductName("");
     }
   };
@@ -64,12 +45,21 @@ function App() {
     );
   };
 
+  const addBrandName = () => {
+    if (newBrandName) {
+      setProducts([
+        ...products,
+        { brand: newBrandName, name: "", isEditing: false },
+      ]);
+      setNewBrandName("");
+    }
+  };
+
+  const brandNames = Array.from(new Set(products.map((p) => p.brand)));
+
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(search.toLowerCase())
   );
-
-  const filtered = [...new Set(filteredProducts.map((i) => i.brand))];
-  console.log(filtered, "filterd set");
 
   const maxProductsInBrand = brandNames.reduce((max, brandName) => {
     const relatedProducts = filteredProducts.filter(
@@ -86,60 +76,64 @@ function App() {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         placeholder="Search products"
-      />
+      />{" "}
       <div className="select-container">
+        {" "}
         <select
           style={{ maxHeight: "100px", overflow: "auto" }}
           onChange={(e) => setCurrentBrand(e.target.value)}
         >
-          <option value="">Select Brand</option>
+          {" "}
+          <option value="">Select Brand</option>{" "}
           {brandNames.map((brandName, index) => (
             <option key={index} value={brandName}>
-              {brandName}
+              {" "}
+              {brandName}{" "}
             </option>
-          ))}
-        </select>
-
+          ))}{" "}
+        </select>{" "}
         <input
           type="text"
           placeholder="Product Name"
           value={productName}
           onChange={(e) => setProductName(e.target.value)}
-        />
+        />{" "}
         <button className="buttonContainer" onClick={addProduct}>
-          Add
-        </button>
-      </div>
+          {" "}
+          Add{" "}
+        </button>{" "}
+      </div>{" "}
       <div className="inputContainer">
+        {" "}
         <input
           className="inputWithButton"
           type="text"
           placeholder="New Brand Name"
           value={newBrandName}
           onChange={(e) => setNewBrandName(e.target.value)}
-        />
-        <button className="insideButton" onClick={addBrand}>
-          +
-        </button>
+        />{" "}
+        <button className="insideButton" onClick={addBrandName}>
+          {" "}
+          +{" "}
+        </button>{" "}
       </div>
       <table>
         <thead>
           <tr>
-            {activeBrandNames.map((brandName) => {
-              return <th key={brandName}>{brandName}</th>;
-            })}
+            {brandNames.map((brandName) => (
+              <th key={brandName}>{brandName}</th>
+            ))}
           </tr>
         </thead>
         <tbody>
           {Array.from({ length: maxProductsInBrand }, (_, i) => (
             <tr key={i}>
-              {activeBrandNames.map((brandName) => {
+              {brandNames.map((brandName) => {
                 const relatedProducts = filteredProducts
                   .filter((p) => p.brand === brandName)
                   .sort((a, b) => a.name.localeCompare(b.name));
 
                 const product = relatedProducts[i];
-
                 return product ? (
                   <td key={product.name}>
                     <div style={{ display: "flex", alignItems: "center" }}>

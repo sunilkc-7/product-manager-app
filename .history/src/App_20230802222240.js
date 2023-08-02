@@ -125,7 +125,7 @@ function App() {
       <table>
         <thead>
           <tr>
-            {activeBrandNames.map((brandName) => {
+            {brandNames.map((brandName) => {
               return <th key={brandName}>{brandName}</th>;
             })}
           </tr>
@@ -133,7 +133,7 @@ function App() {
         <tbody>
           {Array.from({ length: maxProductsInBrand }, (_, i) => (
             <tr key={i}>
-              {activeBrandNames.map((brandName) => {
+              {brandNames.map((brandName) => {
                 const relatedProducts = filteredProducts
                   .filter((p) => p.brand === brandName)
                   .sort((a, b) => a.name.localeCompare(b.name));

@@ -11,12 +11,14 @@ function App() {
   const [newBrandName, setNewBrandName] = useState("");
   const [currentBrand, setCurrentBrand] = useState("");
   const [editedName, setEditedName] = useState("");
-  const [brandNames, setBrandNames] = useState([]); // holds all brands
-  const [activeBrandNames, setActiveBrandNames] = useState([]); // holds only brands with products
+  const [brandNames, setBrandNames] = useState([]);
+
+  useEffect(() => {
+    console.log(productName, "product name");
+  }, [productName]);
 
   useEffect(() => {
     setBrandNames([...Array.from(new Set(products.map((p) => p.brand)))]);
-    setActiveBrandNames([...Array.from(new Set(products.map((p) => p.brand)))]);
   }, [products]);
 
   const addBrand = () => {
@@ -36,7 +38,6 @@ function App() {
           isEditing: false,
         },
       ]);
-      setActiveBrandNames([currentBrand, ...activeBrandNames]);
       setProductName("");
     }
   };
@@ -68,15 +69,14 @@ function App() {
     product.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  const filtered = [...new Set(filteredProducts.map((i) => i.brand))];
-  console.log(filtered, "filterd set");
-
   const maxProductsInBrand = brandNames.reduce((max, brandName) => {
     const relatedProducts = filteredProducts.filter(
       (p) => p.brand === brandName
     );
     return relatedProducts.length > max ? relatedProducts.length : max;
   }, 0);
+
+  console.log(maxProductsInBrand, "max product");
 
   return (
     <div className="App">
@@ -125,21 +125,22 @@ function App() {
       <table>
         <thead>
           <tr>
-            {activeBrandNames.map((brandName) => {
-              return <th key={brandName}>{brandName}</th>;
-            })}
+            {brandNames.map((brandName) => (
+              <th key={brandName}>{brandName}</th>
+            ))}
           </tr>
         </thead>
         <tbody>
           {Array.from({ length: maxProductsInBrand }, (_, i) => (
             <tr key={i}>
-              {activeBrandNames.map((brandName) => {
+              {brandNames.map((brandName) => {
                 const relatedProducts = filteredProducts
                   .filter((p) => p.brand === brandName)
                   .sort((a, b) => a.name.localeCompare(b.name));
 
                 const product = relatedProducts[i];
 
+                console.log(product, "product");
                 return product ? (
                   <td key={product.name}>
                     <div style={{ display: "flex", alignItems: "center" }}>

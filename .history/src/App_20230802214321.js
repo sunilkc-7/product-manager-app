@@ -11,17 +11,16 @@ function App() {
   const [newBrandName, setNewBrandName] = useState("");
   const [currentBrand, setCurrentBrand] = useState("");
   const [editedName, setEditedName] = useState("");
-  const [brandNames, setBrandNames] = useState([]); // holds all brands
-  const [activeBrandNames, setActiveBrandNames] = useState([]); // holds only brands with products
+  const [brandNames, setBrandNames] = useState([]);
 
   useEffect(() => {
     setBrandNames([...Array.from(new Set(products.map((p) => p.brand)))]);
-    setActiveBrandNames([...Array.from(new Set(products.map((p) => p.brand)))]);
   }, [products]);
 
   const addBrand = () => {
     if (newBrandName) {
       setBrandNames([newBrandName, ...brandNames]);
+      console.log(brandNames, "brandNames");
       setNewBrandName("");
     }
   };
@@ -36,7 +35,6 @@ function App() {
           isEditing: false,
         },
       ]);
-      setActiveBrandNames([currentBrand, ...activeBrandNames]);
       setProductName("");
     }
   };
@@ -67,9 +65,6 @@ function App() {
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(search.toLowerCase())
   );
-
-  const filtered = [...new Set(filteredProducts.map((i) => i.brand))];
-  console.log(filtered, "filterd set");
 
   const maxProductsInBrand = brandNames.reduce((max, brandName) => {
     const relatedProducts = filteredProducts.filter(
@@ -125,7 +120,8 @@ function App() {
       <table>
         <thead>
           <tr>
-            {activeBrandNames.map((brandName) => {
+            {brandNames.map((brandName) => {
+              console.log(brandNames, "brandname");
               return <th key={brandName}>{brandName}</th>;
             })}
           </tr>
@@ -133,39 +129,48 @@ function App() {
         <tbody>
           {Array.from({ length: maxProductsInBrand }, (_, i) => (
             <tr key={i}>
-              {activeBrandNames.map((brandName) => {
+              {brandNames.map((brandName) => {
                 const relatedProducts = filteredProducts
                   .filter((p) => p.brand === brandName)
                   .sort((a, b) => a.name.localeCompare(b.name));
 
-                const product = relatedProducts[i];
+                console.log(brandName, "brand name map");
 
-                return product ? (
-                  <td key={product.name}>
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                      {product.isEditing ? (
-                        <input
-                          value={editedName}
-                          onChange={(e) => setEditedName(e.target.value)}
-                        />
-                      ) : (
-                        <div style={{ whiteSpace: "nowrap" }}>
-                          {product.name}
-                        </div>
-                      )}
-                      {product.isEditing ? (
-                        <button onClick={() => updateProduct(product)}>
-                          Save
+                const product = relatedProducts[i];
+                return (
+                  product &&
+                  product.name && (
+                    <td key={product.name}>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        {product.isEditing ? (
+                          <input
+                            value={editedName}
+                            onChange={(e) => setEditedName(e.target.value)}
+                          />
+                        ) : (
+                          <div style={{ whiteSpace: "nowrap" }}>
+                            {product.name}
+                          </div>
+                        )}
+                        {product.isEditing ? (
+                          <button onClick={() => updateProduct(product)}>
+                            Save
+                          </button>
+                        ) : (
+                          <button onClick={() => editProduct(product)}>
+                            ✏
+                          </button>
+                        )}
+                        <button onClick={() => deleteProduct(product)}>
+                          ❌
                         </button>
-                      ) : (
-                        <button onClick={() => editProduct(product)}>✏</button>
-                      )}
-                      <button onClick={() => deleteProduct(product)}>❌</button>
-                    </div>
-                  </td>
-                ) : (
-                  <td key={brandName + i}></td>
+                      </div>
+                    </td>
+                  )
                 );
+                // : (
+                //   <td key={brandName + i}></td>
+                // );
               })}
             </tr>
           ))}
