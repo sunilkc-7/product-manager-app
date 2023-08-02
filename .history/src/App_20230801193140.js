@@ -70,7 +70,6 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Product Manager App</h1>
       <input
         className="inputSearch"
         type="text"
@@ -144,9 +143,7 @@ function App() {
                           onChange={(e) => setEditedName(e.target.value)}
                         />
                       ) : (
-                        <div style={{ whiteSpace: "nowrap" }}>
-                          {product.name}
-                        </div>
+                        <div>{product.name}</div>
                       )}
                       {product.isEditing ? (
                         <button onClick={() => updateProduct(product)}>

@@ -70,7 +70,6 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Product Manager App</h1>
       <input
         className="inputSearch"
         type="text"

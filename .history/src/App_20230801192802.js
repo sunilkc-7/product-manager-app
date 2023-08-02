@@ -70,7 +70,6 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Product Manager App</h1>
       <input
         className="inputSearch"
         type="text"
@@ -137,26 +136,22 @@ function App() {
                 const product = relatedProducts[i];
                 return product ? (
                   <td key={product.name}>
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                      {product.isEditing ? (
-                        <input
-                          value={editedName}
-                          onChange={(e) => setEditedName(e.target.value)}
-                        />
-                      ) : (
-                        <div style={{ whiteSpace: "nowrap" }}>
-                          {product.name}
-                        </div>
-                      )}
-                      {product.isEditing ? (
-                        <button onClick={() => updateProduct(product)}>
-                          Save
-                        </button>
-                      ) : (
-                        <button onClick={() => editProduct(product)}>✏</button>
-                      )}
-                      <button onClick={() => deleteProduct(product)}>❌</button>
-                    </div>
+                    {product.isEditing ? (
+                      <input
+                        value={editedName}
+                        onChange={(e) => setEditedName(e.target.value)}
+                      />
+                    ) : (
+                      product.name
+                    )}
+                    {product.isEditing ? (
+                      <button onClick={() => updateProduct(product)}>
+                        Save
+                      </button>
+                    ) : (
+                      <button onClick={() => editProduct(product)}>✏</button>
+                    )}
+                    <button onClick={() => deleteProduct(product)}>❌</button>
                   </td>
                 ) : (
                   <td key={brandName + i}></td>
