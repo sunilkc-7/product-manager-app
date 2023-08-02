@@ -65,12 +65,8 @@ function App() {
     product.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  const maxProductsInBrand = brandNames.reduce((max, brandName) => {
-    const relatedProducts = filteredProducts.filter(
-      (p) => p.brand === brandName
-    );
-    return relatedProducts.length > max ? relatedProducts.length : max;
-  }, 0);
+  const productsInBrand = (brandName) =>
+    products.filter((product) => product.brand === brandName).length > 0;
 
   return (
     <div className="App">

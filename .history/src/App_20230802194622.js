@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import data from "./data/data.json";
 
@@ -11,28 +11,12 @@ function App() {
   const [newBrandName, setNewBrandName] = useState("");
   const [currentBrand, setCurrentBrand] = useState("");
   const [editedName, setEditedName] = useState("");
-  const [brandNames, setBrandNames] = useState([]);
-
-  useEffect(() => {
-    setBrandNames([...Array.from(new Set(products.map((p) => p.brand)))]);
-  }, [products]);
-
-  const addBrand = () => {
-    if (newBrandName) {
-      setBrandNames([newBrandName, ...brandNames]);
-      setNewBrandName("");
-    }
-  };
 
   const addProduct = () => {
-    if ((currentBrand || newBrandName) && productName) {
+    if (currentBrand && productName) {
       setProducts([
         ...products,
-        {
-          brand: currentBrand,
-          name: productName,
-          isEditing: false,
-        },
+        { brand: currentBrand, name: productName, isEditing: false },
       ]);
       setProductName("");
     }
@@ -61,6 +45,18 @@ function App() {
     );
   };
 
+  const addBrandName = () => {
+    if (newBrandName) {
+      setProducts([
+        ...products,
+        { brand: newBrandName, name: "", isEditing: false },
+      ]);
+      setNewBrandName("");
+    }
+  };
+
+  const brandNames = Array.from(new Set(products.map((p) => p.brand)));
+
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(search.toLowerCase())
   );
@@ -80,41 +76,46 @@ function App() {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         placeholder="Search products"
-      />
+      />{" "}
       <div className="select-container">
+        {" "}
         <select
           style={{ maxHeight: "100px", overflow: "auto" }}
           onChange={(e) => setCurrentBrand(e.target.value)}
         >
-          <option value="">Select Brand</option>
+          {" "}
+          <option value="">Select Brand</option>{" "}
           {brandNames.map((brandName, index) => (
             <option key={index} value={brandName}>
-              {brandName}
+              {" "}
+              {brandName}{" "}
             </option>
-          ))}
-        </select>
-
+          ))}{" "}
+        </select>{" "}
         <input
           type="text"
           placeholder="Product Name"
           value={productName}
           onChange={(e) => setProductName(e.target.value)}
-        />
+        />{" "}
         <button className="buttonContainer" onClick={addProduct}>
-          Add
-        </button>
-      </div>
+          {" "}
+          Add{" "}
+        </button>{" "}
+      </div>{" "}
       <div className="inputContainer">
+        {" "}
         <input
           className="inputWithButton"
           type="text"
           placeholder="New Brand Name"
           value={newBrandName}
           onChange={(e) => setNewBrandName(e.target.value)}
-        />
-        <button className="insideButton" onClick={addBrand}>
-          +
-        </button>
+        />{" "}
+        <button className="insideButton" onClick={addBrandName}>
+          {" "}
+          +{" "}
+        </button>{" "}
       </div>
       <table>
         <thead>

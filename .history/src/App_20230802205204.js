@@ -20,6 +20,7 @@ function App() {
   const addBrand = () => {
     if (newBrandName) {
       setBrandNames([newBrandName, ...brandNames]);
+      setCurrentBrand(newBrandName);
       setNewBrandName("");
     }
   };
@@ -93,7 +94,6 @@ function App() {
             </option>
           ))}
         </select>
-
         <input
           type="text"
           placeholder="Product Name"

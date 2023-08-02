@@ -72,6 +72,9 @@ function App() {
     return relatedProducts.length > max ? relatedProducts.length : max;
   }, 0);
 
+  const productsInBrand = (brandName) =>
+    products.filter((product) => product.brand === brandName).length > 0;
+
   return (
     <div className="App">
       <input
@@ -119,7 +122,7 @@ function App() {
       <table>
         <thead>
           <tr>
-            {brandNames.map((brandName) => (
+            {brandNames.filter(productsInBrand).map((brandName) => (
               <th key={brandName}>{brandName}</th>
             ))}
           </tr>

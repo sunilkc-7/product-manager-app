@@ -87,13 +87,12 @@ function App() {
           onChange={(e) => setCurrentBrand(e.target.value)}
         >
           <option value="">Select Brand</option>
-          {brandNames.map((brandName, index) => (
+          {/* {brandNames.map((brandName, index) => (
             <option key={index} value={brandName}>
               {brandName}
             </option>
-          ))}
+          ))} */}
         </select>
-
         <input
           type="text"
           placeholder="Product Name"

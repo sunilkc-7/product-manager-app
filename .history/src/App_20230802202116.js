@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import data from "./data/data.json";
 
@@ -11,28 +11,12 @@ function App() {
   const [newBrandName, setNewBrandName] = useState("");
   const [currentBrand, setCurrentBrand] = useState("");
   const [editedName, setEditedName] = useState("");
-  const [brandNames, setBrandNames] = useState([]);
-
-  useEffect(() => {
-    setBrandNames([...Array.from(new Set(products.map((p) => p.brand)))]);
-  }, [products]);
-
-  const addBrand = () => {
-    if (newBrandName) {
-      setBrandNames([newBrandName, ...brandNames]);
-      setNewBrandName("");
-    }
-  };
 
   const addProduct = () => {
-    if ((currentBrand || newBrandName) && productName) {
+    if (currentBrand && productName) {
       setProducts([
         ...products,
-        {
-          brand: currentBrand,
-          name: productName,
-          isEditing: false,
-        },
+        { brand: currentBrand, name: productName, isEditing: false },
       ]);
       setProductName("");
     }
@@ -60,6 +44,18 @@ function App() {
       )
     );
   };
+
+  const addBrandName = () => {
+    if (newBrandName) {
+      setProducts([
+        ...products,
+        { brand: newBrandName, name: "", isEditing: false },
+      ]);
+      setNewBrandName("");
+    }
+  };
+
+  const brandNames = Array.from(new Set(products.map((p) => p.brand)));
 
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(search.toLowerCase())
@@ -93,7 +89,6 @@ function App() {
             </option>
           ))}
         </select>
-
         <input
           type="text"
           placeholder="Product Name"
@@ -112,7 +107,7 @@ function App() {
           value={newBrandName}
           onChange={(e) => setNewBrandName(e.target.value)}
         />
-        <button className="insideButton" onClick={addBrand}>
+        <button className="insideButton" onClick={addBrandName}>
           +
         </button>
       </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import data from "./data/data.json";
 
@@ -11,35 +11,36 @@ function App() {
   const [newBrandName, setNewBrandName] = useState("");
   const [currentBrand, setCurrentBrand] = useState("");
   const [editedName, setEditedName] = useState("");
-  const [brandNames, setBrandNames] = useState([]);
-
-  useEffect(() => {
-    setBrandNames([...Array.from(new Set(products.map((p) => p.brand)))]);
-  }, [products]);
-
-  const addBrand = () => {
-    if (newBrandName) {
-      setBrandNames([newBrandName, ...brandNames]);
-      setNewBrandName("");
-    }
-  };
+  const [allBrands, setAllBrands] = useState([]);
+  const [usedBrands, setUsedBrands] = useState([]);
 
   const addProduct = () => {
-    if ((currentBrand || newBrandName) && productName) {
+    if (currentBrand && productName) {
       setProducts([
         ...products,
-        {
-          brand: currentBrand,
-          name: productName,
-          isEditing: false,
-        },
+        { brand: currentBrand, name: productName, isEditing: false },
       ]);
+      if (!usedBrands.includes(currentBrand)) {
+        setUsedBrands([...usedBrands, currentBrand]);
+      }
       setProductName("");
     }
   };
 
   const deleteProduct = (productToDelete) => {
-    setProducts(products.filter((product) => product !== productToDelete));
+    const newProducts = products.filter(
+      (product) => product !== productToDelete
+    );
+    setProducts(newProducts);
+
+    const brandProducts = newProducts.filter(
+      (product) => product.brand === productToDelete.brand
+    );
+    if (brandProducts.length === 0) {
+      setUsedBrands(
+        usedBrands.filter((brand) => brand !== productToDelete.brand)
+      );
+    }
   };
 
   const editProduct = (productToEdit) => {
@@ -61,11 +62,18 @@ function App() {
     );
   };
 
+  const addBrandName = () => {
+    if (newBrandName && !allBrands.includes(newBrandName)) {
+      setAllBrands([...allBrands, newBrandName]);
+      setNewBrandName("");
+    }
+  };
+
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  const maxProductsInBrand = brandNames.reduce((max, brandName) => {
+  const maxProductsInBrand = usedBrands.reduce((max, brandName) => {
     const relatedProducts = filteredProducts.filter(
       (p) => p.brand === brandName
     );
@@ -87,13 +95,12 @@ function App() {
           onChange={(e) => setCurrentBrand(e.target.value)}
         >
           <option value="">Select Brand</option>
-          {brandNames.map((brandName, index) => (
+          {allBrands.map((brandName, index) => (
             <option key={index} value={brandName}>
               {brandName}
             </option>
           ))}
         </select>
-
         <input
           type="text"
           placeholder="Product Name"
@@ -112,14 +119,14 @@ function App() {
           value={newBrandName}
           onChange={(e) => setNewBrandName(e.target.value)}
         />
-        <button className="insideButton" onClick={addBrand}>
+        <button className="insideButton" onClick={addBrandName}>
           +
         </button>
       </div>
       <table>
         <thead>
           <tr>
-            {brandNames.map((brandName) => (
+            {usedBrands.map((brandName) => (
               <th key={brandName}>{brandName}</th>
             ))}
           </tr>
@@ -127,7 +134,7 @@ function App() {
         <tbody>
           {Array.from({ length: maxProductsInBrand }, (_, i) => (
             <tr key={i}>
-              {brandNames.map((brandName) => {
+              {usedBrands.map((brandName) => {
                 const relatedProducts = filteredProducts
                   .filter((p) => p.brand === brandName)
                   .sort((a, b) => a.name.localeCompare(b.name));

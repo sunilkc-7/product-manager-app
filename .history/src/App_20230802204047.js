@@ -14,27 +14,22 @@ function App() {
   const [brandNames, setBrandNames] = useState([]);
 
   useEffect(() => {
-    setBrandNames([...Array.from(new Set(products.map((p) => p.brand)))]);
+    setBrandNames(Array.from(new Set(products.map((p) => p.brand))));
   }, [products]);
-
-  const addBrand = () => {
-    if (newBrandName) {
-      setBrandNames([newBrandName, ...brandNames]);
-      setNewBrandName("");
-    }
-  };
 
   const addProduct = () => {
     if ((currentBrand || newBrandName) && productName) {
       setProducts([
         ...products,
         {
-          brand: currentBrand,
+          brand: currentBrand || newBrandName,
           name: productName,
           isEditing: false,
         },
       ]);
       setProductName("");
+      setCurrentBrand(newBrandName);
+      setNewBrandName("");
     }
   };
 
@@ -85,6 +80,7 @@ function App() {
         <select
           style={{ maxHeight: "100px", overflow: "auto" }}
           onChange={(e) => setCurrentBrand(e.target.value)}
+          value={currentBrand}
         >
           <option value="">Select Brand</option>
           {brandNames.map((brandName, index) => (
@@ -93,7 +89,6 @@ function App() {
             </option>
           ))}
         </select>
-
         <input
           type="text"
           placeholder="Product Name"
@@ -112,7 +107,7 @@ function App() {
           value={newBrandName}
           onChange={(e) => setNewBrandName(e.target.value)}
         />
-        <button className="insideButton" onClick={addBrand}>
+        <button className="insideButton" onClick={addProduct}>
           +
         </button>
       </div>

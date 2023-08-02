@@ -93,7 +93,6 @@ function App() {
             </option>
           ))}
         </select>
-
         <input
           type="text"
           placeholder="Product Name"
